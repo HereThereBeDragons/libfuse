@@ -16,6 +16,7 @@ threaded_examples = [ 'notify_inval_inode',
                       'invalidate_path',
                       'notify_store_retrieve',
                       'notify_inval_entry',
+                      'notify_expire_entry',
                       'poll' ]
 
 foreach ex : examples

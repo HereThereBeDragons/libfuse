@@ -329,13 +329,17 @@ def test_null(tmpdir, output_checker):
         umount(mount_process, mnt_file)
 
 
+names = ['notify_inval_entry',]
+if fuse_proto >= (7,38):
+    names.append('notify_expire_entry')
 @pytest.mark.skipif(fuse_proto < (7,12),
                     reason='not supported by running kernel')
+@pytest.mark.parametrize("name", names)
 @pytest.mark.parametrize("notify", (True, False))
-def test_notify_inval_entry(tmpdir, notify, output_checker):
+def test_notify_inval_entry(tmpdir, name, notify, output_checker):
     mnt_dir = str(tmpdir)
     cmdline = base_cmdline + \
-              [ pjoin(basename, 'example', 'notify_inval_entry'),
+              [ pjoin(basename, 'example', name),
                 '-f', '--update-interval=1',
                 '--timeout=5', mnt_dir ]
     if not notify:
